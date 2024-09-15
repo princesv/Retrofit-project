@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitproject2.R
+import com.example.retrofitproject2.pojo.Article
 import com.example.retrofitproject2.pojo.NewsArticles
+import com.example.retrofitproject2.room.ArticlesViewModel
 
-class NewsAdapter(val newsArticles: NewsArticles): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(val vmNewsArticles: ArticlesViewModel): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     lateinit var mListener:onNewsItemClickListener
     inner class NewsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val tv=itemView.findViewById<TextView>(R.id.news_title)
@@ -32,10 +34,10 @@ class NewsAdapter(val newsArticles: NewsArticles): RecyclerView.Adapter<NewsAdap
     }
 
     override fun getItemCount(): Int {
-        return newsArticles.articles.size
+        return vmNewsArticles.getNewsArticleList().size
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.tv.setText(newsArticles.articles.get(position).title)
+        holder.tv.setText(vmNewsArticles.getNewsArticleList().get(position).title)
     }
 }
